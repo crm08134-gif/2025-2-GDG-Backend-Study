@@ -32,5 +32,3 @@ URI : /orders/{orderId}
 주문 취소
 HTTP Method : DELETE
 URI : /orders/{orderId}
-
-![img.png](img.png)
