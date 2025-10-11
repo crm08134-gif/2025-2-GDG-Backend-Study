@@ -1,0 +1,67 @@
+package com.example.shop.product;
+
+import org.springframework.transaction.annotation.Transactional;
+import com.example.shop.product.dto.ProductCreateRequest;
+import com.example.shop.product.dto.ProductUpdateRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+
+public class ProductService {
+
+    private final ProductRepository productRepository;
+
+    public Long createProduct(ProductCreateRequest request) {
+
+        Product product = new Product(
+                request.getName(),
+                request.getPrice(),
+                request.getStockNumber()
+        );
+
+        productRepository.save(product);
+
+        return  product.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> getAllproducts(){
+        return productRepository.findAll();
+    }
+
+    public Product getProductById(Long id){
+        Product product = productRepository.findById(id);
+
+        if (product == null) {
+            throw new RuntimeException("상품을 찾을 수 없습니다.");
+        }
+
+        return product;
+    }
+
+    public void updateProduct(Long id, ProductUpdateRequest request){
+        Product product = productRepository.findById(id);
+
+        if (product == null) {
+            throw new RuntimeException("상품을 찾을 수 없습니다.");
+        }
+
+        product.updateInfo(request.getName(), request.getPrice(), request.getStockNumber());
+    }
+
+    public void deleteProductById(Long id){
+        Product product = productRepository.findById(id);
+
+        if(product == null){
+            throw new RuntimeException("상품을 찾을 수 없습니다.");
+        }
+
+        productRepository.deleteById(id);
+    }
+
+
+}

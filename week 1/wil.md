@@ -21,7 +21,7 @@ HTTP Method : DELETE
 URI : /products/{productId}
 
 주문 정보 생성
-HTTP Method : PUT
+HTTP Method : POST
 URI : /orders
 주문 목록 조회
 HTTP Method : GET
