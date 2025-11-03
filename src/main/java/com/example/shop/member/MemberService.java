@@ -15,6 +15,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Transactional
     public Long createMember(MemberCreateRequest request) {
         Member existingMember = memberRepository.findByLoginId(request.getLoginId());
         if (existingMember != null) {
@@ -38,6 +39,7 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    @Transactional
     public Member getMemberById(Long id){
         Member member = memberRepository.findById(id);
 
@@ -48,6 +50,7 @@ public class MemberService {
         return member;
     }
 
+    @Transactional
     public void updateMember(Long id, MemberUpdateRequest request){
         Member member = memberRepository.findById(id);
 
@@ -58,6 +61,7 @@ public class MemberService {
         member.updateInfo(request.getPassword(), request.getPhoneNumber(), request.getAddress());
     }
 
+    @Transactional
     public void deleteMemberById(Long id){
         Member member = memberRepository.findById(id);
 
